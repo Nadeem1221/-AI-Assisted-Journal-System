@@ -1,16 +1,54 @@
-# React + Vite
+# Project Documentation
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+1. System Overview
+Aura is a full-stack MERN application that uses Generative AI to provide emotional feedback on journal entries. It features a responsive grid dashboard and real-time LLM analysis.
 
-Currently, two official plugins are available:
+2. Technical Stack
+Frontend: React + Vite (UI), Lucide (Icons), Axios (API calls).
+Backend: Node.js + Express (REST API), Dotenv (Config).
+Database: MongoDB + Mongoose (Data persistence).
+AI Engine: Groq SDK (Llama 3.3 70B Model).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## React Compiler
+3. Directory Structure
+├── backend/            # Express Server & API Routes
+│   ├── models/         # MongoDB Schemas (JournalEntry)
+│   ├── routes/         # API Endpoints (/analyze, /insights)
+│   └── server.js       # Entry point (Port 5000)
+├── src/                # React Frontend
+│   ├── api.js          # Centralized Axios service
+│   ├── App.jsx         # Main Logic & UI Layout
+│   └── App.css         # Grid-based Styling
+└── .env                # API Keys & DB URI
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## Expanding the ESLint configuration
+4. Setup & Installation
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+(1) Clone & Install:
+
+bash
+npm install                   # Root dependencies
+cd backend && npm install    # Server dependencies
+
+(2) Environment Configuration: Create a .env in the root:
+
+env
+GROQ_API_KEY=your_key_here
+MONGODB_URI=mongodb://localhost:27017/ai-journal
+PORT=5000
+
+(3) Run Development:
+    Backend: cd backend && npm start
+    Frontend: npm run dev (Runs on port 5173)
+
+
+5. Main API Endpoints
+POST /api/journal/analyze: Sends text to LLM for emotion/keyword extraction.
+POST /api/journal: Saves the entry + AI analysis to MongoDB.
+GET /api/journal/:userId: Fetches all previous entries for a user.
+GET /api/journal/insights/:userId: Aggregates stats (Top emotion, total entries).
+
+6. Key Features Implemented
+Dynamic Layout: Auto-adapting grid for desktop/mobile views.
+Error Handling: Centralized API error catching.
+Rate Limiting: Backend protection (10 requests/min).
