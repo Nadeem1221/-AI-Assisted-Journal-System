@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE = 'https://ai-assisted-journal-system-dp4w.onrender.com';
+const API_BASE = 'https://ai-assisted-journal-system-dp4w.onrender.com/api';
 // const API_BASE = 'http://localhost:5000/api';
 
 export const createEntry = (data) =>
